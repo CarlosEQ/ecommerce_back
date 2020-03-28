@@ -21,17 +21,19 @@ public class Product {
 	private String description;
 	private double weight, price;
 	
-	@ManyToOne
-	@JoinColumn(name="id_category")
-	@JsonIgnore
-	private Category category;;
+//	@ManyToOne
+//	@JoinColumn(name="id_category")
+//	@JsonIgnore
+//	private Category category;;
+	
+	private long id_category;
  
     public Product() {
         super();
     }
-    public Product(String name, Category category) {
+    public Product(String name, long id_category) {
         this.name = name;
-        this.category = category;
+        this.id_category = id_category;
     }
     public long getId() {
         return id;
@@ -67,12 +69,19 @@ public class Product {
     public void setPrice(double price) {
 		this.price = price;
 	}
-    @JsonIgnore
-    public Category getCategory() {
-		return category;
+//    @JsonIgnore
+//    public Category getCategory() {
+//		return category;
+//	}
+//    public void setCategory(Category category) {
+//		this.category = category;
+//	}
+    
+    public long getId_category() {
+		return id_category;
 	}
-    public void setCategory(Category category) {
-		this.category = category;
+    public void setId_category(long id_category) {
+		this.id_category = id_category;
 	}
 }
 

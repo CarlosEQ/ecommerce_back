@@ -4,6 +4,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +34,9 @@ public class ProductController {
 
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@PersistenceContext
+	   private EntityManager em;
 
 	@GetMapping("/products")
 	public List<Product> getAllProducts() {
@@ -42,6 +48,14 @@ public class ProductController {
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + productId));
 		return ResponseEntity.ok().body(product);
+	}
+	
+	@GetMapping("/products/category/{id}")	
+	public List<Product> findProductByCategoryId(@PathVariable(value = "id") Long id_category){
+
+		List cities = (List<Product>) productRepository.findProductByCategoryId(id_category);
+
+		return cities;
 	}
 
 	@PostMapping("/products")

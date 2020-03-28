@@ -18,8 +18,8 @@ public class Category {
     private long id;
     private String name;
     
-    @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
-    private List <Product> products;
+//    @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
+//    private List <Product> products;
  
     public Category() {
         super();
@@ -43,13 +43,13 @@ public class Category {
         this.name = name;
     }
     
-    
-    public List<Product> getProducts() {
-        return products;
-    }
-    
-    public void setProducts(List <Product> products) {
-        this.products = products;
-    }
+//    
+//    public List<Product> getProducts() {
+//        return products;
+//    }
+//    
+//    public void setProducts(List <Product> products) {
+//        this.products = products;
+//    }
  
 }
