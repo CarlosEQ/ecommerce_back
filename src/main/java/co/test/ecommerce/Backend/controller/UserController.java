@@ -46,6 +46,8 @@ public class UserController {
 
 	@PostMapping("/users")
 	public User createUser(@Valid @RequestBody User user) {
+		
+		
 		return userRepository.save(user);
 	}
 
@@ -55,8 +57,8 @@ public class UserController {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
 
-		user.setUser(userDetails.getUser());
-		user.setMail(userDetails.getMail());
+		user.setUser_name(userDetails.getUser_name());
+		user.setEmail_user(userDetails.getEmail_user());
 		user.setPassword(userDetails.getPassword());
 		final User updatedUser = userRepository.save(user);
 		return ResponseEntity.ok(updatedUser);

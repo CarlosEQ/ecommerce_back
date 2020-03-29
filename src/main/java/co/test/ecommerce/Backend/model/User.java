@@ -1,71 +1,62 @@
 package co.test.ecommerce.Backend.model;
 
-import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+ 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
-
-	private long id;
-	private String user;
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private long id;
+	private String email_user;
+	private String user_name;
 	private String password;
-	private String mail;
-
-	public User() {
-
-	}
-
-	public User(String user, String password, String mail) {
-		this.user = user;
-		this.password = password;
-		this.mail = mail;
-	}
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	
+ 
+    public User() {
+        super();
+    }
+    public User(String email_user, String user_name, String password) {
+        this.email_user = email_user;
+        this.user_name = user_name;
+        this.password = password;
+    }
 	public long getId() {
 		return id;
 	}
-
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	@Column(name = "user", nullable = false)
-	public String getUser() {
-		return user;
+	public String getEmail_user() {
+		return email_user;
 	}
-
-	public void setUser(String user) {
-		this.user = user;
+	public void setEmail_user(String email_user) {
+		this.email_user = email_user;
 	}
-	
-	@Column(name = "password", nullable = false)
+	public String getUser_name() {
+		return user_name;
+	}
+	public void setUser_name(String user_name) {
+		this.user_name = user_name;
+	}
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	@Column(name = "mail", nullable = false)
-	public String getMail() {
-		return mail;
-	}
-
-	public void setMail(String mail) {
-		this.mail = mail;
-	}
-
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", User=" + user + "Mail=" + mail + "]";
-	}
-
+    
+    
+    
 }
+
+
