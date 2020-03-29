@@ -52,10 +52,13 @@ public class ProductController {
 	
 	@GetMapping("/products/category/{id}")	
 	public List<Product> findProductByCategoryId(@PathVariable(value = "id") Long id_category){
+		
+		System.out.println("sadfasdfsd " + id_category.getClass());
 
-		List cities = (List<Product>) productRepository.findProductByCategoryId(id_category);
-
-		return cities;
+		List products = (List<Product>) productRepository.findProductByCategoryId(id_category);
+		
+		
+		return products;
 	}
 
 	@PostMapping("/products")
