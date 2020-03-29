@@ -11,6 +11,7 @@ CREATE TABLE if not exists products (
     description VARCHAR (100),
     price FLOAT NOT NULL,
     weight FLOAT NOT NULL,
+    picture LONGBLOB,
     PRIMARY KEY (id),
     FOREIGN KEY (id_category) REFERENCES categories(id)
 );

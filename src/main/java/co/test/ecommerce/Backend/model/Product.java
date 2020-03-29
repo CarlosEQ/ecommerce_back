@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,14 +20,10 @@ public class Product {
     private long id;
 	private String name;
 	private String description;
-	private double weight, price;
-	
-//	@ManyToOne
-//	@JoinColumn(name="id_category")
-//	@JsonIgnore
-//	private Category category;;
-	
+	private double weight, price;	
 	private long id_category;
+	@Lob
+	private String picture;
  
     public Product() {
         super();
@@ -69,13 +66,13 @@ public class Product {
     public void setPrice(double price) {
 		this.price = price;
 	}
-//    @JsonIgnore
-//    public Category getCategory() {
-//		return category;
-//	}
-//    public void setCategory(Category category) {
-//		this.category = category;
-//	}
+    
+    public String getPicture() {
+		return picture;
+	}
+    public void setPicture(String picture) {
+		this.picture = picture;
+	}
     
     public long getId_category() {
 		return id_category;

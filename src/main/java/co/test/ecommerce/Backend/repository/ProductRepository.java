@@ -14,7 +14,7 @@ import co.test.ecommerce.Backend.model.Product;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-	@Query(value = "SELECT products.id, products.name, products.description, products.weight, products.price, products.id_category FROM categories JOIN products ON categories.id = products.id_category WHERE categories.id = ?1", nativeQuery = true)
+	@Query(value = "SELECT products.id, products.name, products.description, products.weight, products.price, products.id_category, products.picture FROM categories JOIN products ON categories.id = products.id_category WHERE categories.id = ?1", nativeQuery = true)
 	public List<Product> findProductByCategoryId(@Param("id_category") Long id_category);
 
 }
