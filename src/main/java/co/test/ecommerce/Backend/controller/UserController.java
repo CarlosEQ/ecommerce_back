@@ -32,11 +32,21 @@ public class UserController {
 	@Autowired
 	private UserRepository userRepository;
 
+	/**
+	 * Get a list of users
+	 * @return
+	 */
 	@GetMapping("/users")
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
 
+	/**
+	 * get a user by his id
+	 * @param userId user id
+	 * @return the user if it is, else an exception
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/users/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
 		User user = userRepository.findById(userId)
@@ -44,6 +54,13 @@ public class UserController {
 		return ResponseEntity.ok().body(user);
 	}
 
+	
+	/**
+	 * Allow to save an user in the database
+	 * 
+	 * @param accesory user to save
+	 * @return the storaged user
+	 */
 	@PostMapping("/users")
 	public User createUser(@Valid @RequestBody User user) {
 		
@@ -51,6 +68,14 @@ public class UserController {
 		return userRepository.save(user);
 	}
 
+	/**
+	 * Allow to update an user by his id
+	 * 
+	 * @param userId user's id
+	 * @param userDetails the updated user
+	 * @return response of the user
+	 * @throws ResourceNotFoundException if the user is not storaged
+	 */
 	@PutMapping("/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId,
 			@Valid @RequestBody User userDetails) throws ResourceNotFoundException {
@@ -64,6 +89,12 @@ public class UserController {
 		return ResponseEntity.ok(updatedUser);
 	}
 
+	/**
+	 * Allow to delete an user by his id
+	 * @param userId user's id
+	 * @return response of the user
+	 * @throws ResourceNotFoundException if the user is not storaged
+	 */
 	@DeleteMapping("/users/{id}")
 	public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
 			throws ResourceNotFoundException {

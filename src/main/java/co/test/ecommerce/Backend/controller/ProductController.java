@@ -6,9 +6,7 @@ import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -25,8 +23,6 @@ import co.test.ecommerce.Backend.exception.ResourceNotFoundException;
 import co.test.ecommerce.Backend.model.Product;
 import co.test.ecommerce.Backend.repository.ProductRepository;
 
-
-
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
@@ -34,39 +30,68 @@ public class ProductController {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	@PersistenceContext
-	   private EntityManager em;
 
+	@PersistenceContext
+	private EntityManager em;
+
+	/**
+	 * Get a list of products
+	 * 
+	 * @return list of products
+	 */
 	@GetMapping("/products")
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
 
+	/**
+	 * Allow get an product by his id
+	 * 
+	 * @param productId product's id
+	 * @return the product if it is, else an exception
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/products/{id}")
-	public ResponseEntity<Product> getUserById(@PathVariable(value = "id") Long productId) throws ResourceNotFoundException {
+	public ResponseEntity<Product> getUserById(@PathVariable(value = "id") Long productId)
+			throws ResourceNotFoundException {
 		Product product = productRepository.findById(productId)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not found for this id :: " + productId));
 		return ResponseEntity.ok().body(product);
 	}
-	
-	@GetMapping("/products/category/{id}")	
-	public List<Product> findProductByCategoryId(@PathVariable(value = "id") Long id_category){
-		
-		System.out.println("sadfasdfsd " + id_category.getClass());
+
+	/**
+	 * Get a list of products by his category id
+	 * @param id_category category's id
+	 * @return list of products
+	 */
+	@GetMapping("/products/category/{id}")
+	public List<Product> findProductByCategoryId(@PathVariable(value = "id") Long id_category) {
 
 		List products = (List<Product>) productRepository.findProductByCategoryId(id_category);
-		
-		
+
 		return products;
 	}
 
+	/**
+	 * Allow to save a product in the database
+	 * 
+	 * @param product accesory to save
+	 * @return the storaged product
+	 */
 	@PostMapping("/products")
 	public Product createProduct(@Valid @RequestBody Product product) {
-		
+
 		return productRepository.save(product);
 	}
 
+	/**
+	 * Allow to update a product by his id
+	 * 
+	 * @param producId product's id
+	 * @param productDetails the updated product
+	 * @return response of the product
+	 * @throws ResourceNotFoundException if the product is not storaged
+	 */
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> updateEmployee(@PathVariable(value = "id") Long productId,
 			@Valid @RequestBody Product productDetails) throws ResourceNotFoundException {
@@ -81,6 +106,13 @@ public class ProductController {
 		return ResponseEntity.ok(updatedProduct);
 	}
 
+	/**
+	 * Allow to delete a product by his id
+	 * 
+	 * @param productId accesory's id
+	 * @return response of the product
+	 * @throws ResourceNotFoundException if the product is not storaged
+	 */
 	@DeleteMapping("/products/{id}")
 	public Map<String, Boolean> deleteProduct(@PathVariable(value = "id") Long productId)
 			throws ResourceNotFoundException {

@@ -25,13 +25,23 @@ public class Product {
 	@Lob
 	private String picture;
  
+	/**
+	 * Default constructor
+	 */
     public Product() {
         super();
     }
+    /**
+     * Params constructor
+     * @param name name of the product
+     * @param id_category category's product
+     */
     public Product(String name, long id_category) {
         this.name = name;
         this.id_category = id_category;
     }
+    
+    //GETTERS AND SETTERS
     public long getId() {
         return id;
     }

@@ -1,13 +1,10 @@
 package co.test.ecommerce.Backend.model;
 
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
  
 @Entity
@@ -18,18 +15,22 @@ public class Category {
     private long id;
     private String name;
     
-//    @OneToMany(mappedBy="category", cascade=CascadeType.ALL)
-//    private List <Product> products;
- 
+    /**
+     * Default constructo
+     */
     public Category() {
         super();
         // TODO Auto-generated constructor stub
     }
- 
+    /**
+     * Params contructor
+     * @param name name of the category
+     */
     public Category(String name) {
         this.name = name;
     }
  
+    // GETTERS AND SETTERS
     public long getId() {
         return id;
     }
@@ -43,13 +44,5 @@ public class Category {
         this.name = name;
     }
     
-//    
-//    public List<Product> getProducts() {
-//        return products;
-//    }
-//    
-//    public void setProducts(List <Product> products) {
-//        this.products = products;
-//    }
  
 }

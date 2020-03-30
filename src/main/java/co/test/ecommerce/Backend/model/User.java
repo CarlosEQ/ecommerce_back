@@ -21,15 +21,25 @@ public class User {
 	private String user_name;
 	private String password;
 	
- 
+	/**
+	 * Default constructor
+	 */
     public User() {
         super();
     }
+    /**
+     * Params constructor
+     * @param email_user user email
+     * @param user_name user name
+     * @param password user password
+     */
     public User(String email_user, String user_name, String password) {
         this.email_user = email_user;
         this.user_name = user_name;
         this.password = password;
     }
+    
+    //GETTERS AND SETTERS
 	public long getId() {
 		return id;
 	}

@@ -34,20 +34,27 @@ import co.test.ecommerce.Backend.repository.CategoryRepository;
 public class CategoryController {
 	@Autowired
 	private CategoryRepository categoryRepository;
-
-//    @GetMapping("/categories")
-//    public List<Category> getAllcategories() {
-//        return categoryRepository.findAll();
-//    }
 	@PersistenceContext
 	   private EntityManager em;
 
+	/**
+	 * Get a list of the categories storaged
+	 * 
+	 * @return list of categories
+	 */
 	@RequestMapping("/categories")
 	public List getAllCategories() {
 		List lista = categoryRepository.findAll();
 		return lista;
 	}
 
+	/**
+	 * Allow get a category by his id
+	 * 
+	 * @param categoryId accesory's id
+	 * @return the category if it is, else an exception
+	 * @throws ResourceNotFoundException
+	 */
 	@GetMapping("/categories/{id}")
 	public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id") Long categoryId)
 			throws ResourceNotFoundException {
@@ -56,22 +63,26 @@ public class CategoryController {
 		return ResponseEntity.ok().body(category);
 	}
 	
-	
-	@GetMapping("/categories/{id}/products")	
-	public List<Product> findProductByCategoryId(@PathVariable(value = "id") Long id_category){
 
-		String sql = "SELECT p.id, p.name, p.description, p.price, p.weight, p.id_category from products p join categories c on c.id = p.id_category where c.id = " + id_category+"";
-	    
-	    Query q = em.createNativeQuery(sql);
-	    
-	    return q.getResultList();
-	}
-
+	/**
+	 * Allow to save a category in the database
+	 * 
+	 * @param category accesory to save
+	 * @return the storaged category
+	 */
 	@PostMapping("/categories")
 	public Category createCategory(@Valid @RequestBody Category category) {
 		return categoryRepository.save(category);
 	}
 
+	/**
+	 * Allow to update a category by his id
+	 * 
+	 * @param categoryyId      category's id
+	 * @param categoryDetails the updated category
+	 * @return response of the category
+	 * @throws ResourceNotFoundException if the category is not storaged
+	 */
 	@PutMapping("/categories/{id}")
 	public ResponseEntity<Category> updateCategory(@PathVariable(value = "id") Long categoryId,
 			@Valid @RequestBody Category categoryDetails) throws ResourceNotFoundException {
@@ -83,6 +94,13 @@ public class CategoryController {
 		return ResponseEntity.ok(updatedCategory);
 	}
 
+	/**
+	 * Allow to delete a category by her id
+	 * 
+	 * @param categoryId category's id
+	 * @return response of the category
+	 * @throws ResourceNotFoundException if the category is not storaged
+	 */
 	@DeleteMapping("/categories/{id}")
 	public Map<String, Boolean> deleteCategory(@PathVariable(value = "id") Long categoryId)
 			throws ResourceNotFoundException {
